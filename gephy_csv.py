@@ -1,73 +1,3 @@
-# requirements:
-# pip install python-docx networkx lxml
-
-#
-#
-# docx_path = "/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/ARTIFICIAL INTELLIGENCE IN FOREIGN LANGUAGE TEACHING.docx"
-#
-#
-# from docx import Document
-# import pandas as pd
-# import re
-# from pathlib import Path
-#
-# DOCX = Path("/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/ARTIFICIAL INTELLIGENCE IN FOREIGN LANGUAGE TEACHING.docx")         # имя файла
-# NODES_CSV = "nodes.csv"
-# EDGES_CSV = "edges.csv"
-#
-# # --- вспомогательные регэкспы ---
-# AUTHOR_LINE_RGX = re.compile(r"[А-ЯЁ][а-яё\-]+\s+[А-ЯЁ]\.")  # Фамилия И.
-# CITE_AUTHOR_RGX = re.compile(r"^([А-ЯЁ][а-яё\-]+)\s+[А-ЯЁ]\.")  # первая фамилия в ссылке
-#
-# doc = Document(DOCX)
-# table = doc.tables[0]                # главная таблица
-#
-# articles = []                        # [{'id','authors':[...], 'cited':[...]}]
-# for r_i, row in enumerate(table.rows[1:], start=1):           # пропускаем заголовок
-#     art_id = f"ART_{r_i}"
-#
-#     # ---------- авторы статьи ----------
-#     txt0 = row.cells[0].text.splitlines()
-#     authors_raw = next((ln for ln in txt0 if AUTHOR_LINE_RGX.search(ln)), "")
-#     authors = [a.strip() for a in re.split(r",| и ", authors_raw) if a.strip()]
-#
-#     # ---------- литература (вложенная таблица) ----------
-#     cited = set()
-#     lit_cell = row.cells[3]
-#     if lit_cell.tables:
-#         for nrow in lit_cell.tables[0].rows:
-#             # во вложенной таблице первая ячейка – номер, остальное – ссылка
-#             ref_text = " ".join(c.text.strip() for c in nrow.cells[1:]).strip()
-#             m = CITE_AUTHOR_RGX.match(ref_text)
-#             if m:
-#                 cited.add(m.group(1))             # только фамилию
-#
-#     articles.append({"id": art_id, "authors": authors, "cited": list(cited)})
-#
-# # ---------- узлы ----------
-# nodes = []
-# for art in articles:
-#     nodes.append({"Id": art["id"], "Label": art["id"], "Type": "Article"})
-# cited_authors = {a for art in articles for a in art["cited"]}
-# for a in cited_authors:
-#     nodes.append({"Id": f"AUT_{a}", "Label": a, "Type": "Author"})
-#
-# # ---------- рёбра статья → автор ----------
-# edges = []
-# for art in articles:
-#     for a in art["cited"]:
-#         edges.append({
-#             "Source": art["id"],
-#             "Target": f"AUT_{a}",
-#             "Type": "Directed",
-#             "Label": "cites",
-#             "Weight": 1
-#         })
-#
-# # ---------- выгрузка ----------
-# pd.DataFrame(nodes).to_csv(NODES_CSV, index=False)
-# pd.DataFrame(edges).to_csv(EDGES_CSV, index=False)
-# print(f"Файлы сохранены: {NODES_CSV}, {EDGES_CSV}")
 from docx import Document
 import pandas as pd
 import re
@@ -75,7 +5,7 @@ from pathlib import Path
 from collections import defaultdict
 from itertools import combinations
 
-DOCX = Path("/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/ARTIFICIAL INTELLIGENCE IN FOREIGN LANGUAGE TEACHING.docx")
+DOCX = Path("/укажите путь к своему файлу")
 NODES_CSV = "nodes.csv"
 EDGES_CSV = "edges.csv"
 
