@@ -1,9 +1,3 @@
-"""
-Heatmap-скрипт без заголовков
------------------------------
-Те же данные, та же шкала TF-IDF сбоку, но без `ax.set_title()`.
-"""
-
 import os
 import numpy as np
 import pandas as pd
@@ -34,32 +28,6 @@ def collect_tfidf(folder: str, sheet: str,
 
     return combined.set_index(col_names[0])
 
-
-# def plot_heatmap(df: pd.DataFrame) -> None:
-#     df_sorted = (df.assign(max_val=df.max(axis=1, skipna=True))
-#                    .sort_values("max_val", ascending=False)
-#                    .drop(columns="max_val"))
-#
-#     data = df_sorted.fillna(0)
-#     fig, ax = plt.subplots(figsize=(10, max(4, len(data) * 0.4)))
-#     im = ax.imshow(data.values, aspect="auto", cmap="Pastel1")
-#
-#     # цветовая шкала
-#     fig.colorbar(im, ax=ax, label="TF-IDF")
-#
-#     ax.set_xticks(np.arange(len(data.columns)))
-#     ax.set_xticklabels(data.columns)
-#     ax.set_yticks(np.arange(len(data.index)))
-#     ax.set_yticklabels(data.index)
-#
-#     for i in range(len(data.index)):
-#         for j in range(len(data.columns)):
-#             val = df_sorted.iloc[i, j]
-#             txt = "–" if pd.isna(val) else f"{val:.4f}"
-#             ax.text(j, i, txt, ha="center", va="center", fontsize=7)
-#
-#     fig.tight_layout()
-#     plt.show()
 
 def plot_heatmap(df: pd.DataFrame) -> None:
     df_sorted = (df.assign(max_val=df.max(axis=1, skipna=True))
@@ -97,7 +65,7 @@ def plot_heatmap(df: pd.DataFrame) -> None:
 
 
 if __name__ == "__main__":
-    folder = '/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/Новая папка'
+    folder = '/укажите путь к своей папке с файлами'
 
     # KEYWORDS
     kw_df = collect_tfidf(folder, "keywords_tfidf")
