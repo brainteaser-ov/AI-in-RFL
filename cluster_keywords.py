@@ -2,7 +2,7 @@ import pandas as pd
 
 
 # 1. Загрузка данных
-df = pd.read_excel('/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/articles_metadata.xlsx')
+df = pd.read_excel('/укажите путь к своему файлу')
 
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
@@ -262,4 +262,4 @@ def main(doc_path: Path):
 
 if __name__ == "__main__":
     # ▼▼▼ Укажите путь к своему .docx‑файлу ▼▼▼
-    main(Path("/Users/oksanagoncarova/Desktop/статьи лето/русистика статья/2022.docx"))
+    main(Path("/укажите путь к своему файлу"))
